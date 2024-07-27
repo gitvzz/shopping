@@ -9,7 +9,9 @@ jobs:
     steps:
       - name: Extract order details
         id: extract_details
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ISSUE_NUMBER=3
-          ISSUE_BODY=$(GH_TOKEN=${{ secrets.GITHUB_TOKEN }} gh issue view $ISSUE_NUMBER --json body --jq .body)
+          ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           echo "$ISSUE_BODY"
