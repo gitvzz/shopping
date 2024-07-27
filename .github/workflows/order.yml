@@ -1,0 +1,18 @@
+name: order
+
+on: workflow_dispatch
+
+jobs:
+  order:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Extract order details
+          id: extract_details
+          run: |
+            ISSUE_NUMBER=3
+            ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
+            echo "$ISSUE_BODY"
+
+            
+        

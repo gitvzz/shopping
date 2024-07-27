@@ -1,0 +1,779 @@
+{
+    "categories":[
+        {
+            "name": "CodeTea",
+            "packageType": "NORMAL",
+            "products": [
+                {
+                    "name": "Da Hong Pao tea",
+                    "link": "https://en.wikipedia.org/wiki/Da_Hong_Pao",
+                    "defaultStandard": "A",
+                    "defaultQuantity": 500,
+                    "images": [
+                        {
+                            "src": "https://img1.baidu.com/it/u=2288590788,3996478196&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+                            "alt": "Two each of gray, white, and black shirts laying flat."
+                        },
+                        {
+                            "src": "https://youimg1.c-ctrip.com/target/1002180000014khzk43E1.jpg",
+                            "alt": "Model wearing plain black basic tee."
+                        },
+                        {
+                            "src": "https://shoplineimg.com/617f4eca0fbbdc00389f1e14/64ec87f916da4700117734b3/800x.jpg?",
+                            "alt": "Model wearing plain gray basic tee."
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1721434676608-23d5f3b9aefd?q=80&w=4140&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                            "alt": "Model wearing plain white basic tee."
+                        },
+                        {
+                            "src": "https://plus.unsplash.com/premium_photo-1674406481284-43eba097a291?q=80&w=4140&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                            "alt": "Model wearing plain white basic tee."
+                        }
+                    ],
+                    "standards": [
+                        {
+                            "name": "A",
+                            "inStock": true,
+                            "price": 300
+                        },
+                        {
+                            "name": "B",
+                            "inStock": true,
+                            "price": 600
+                        },
+                        {
+                            "name": "C",
+                            "inStock": true,
+                            "price": 900
+                        },
+                        {
+                            "name": "D",
+                            "inStock": true,
+                            "price": 1200
+                        }
+                    ],
+                    "description": "Da Hong Pao tea, with its unique flavor and rich cultural heritage, allows every programmer to find a moment of tranquility amidst the busy coding work. Whether it’s your first cup in the morning or a pick-me-up during a late-night coding session, Da Hong Pao tea is your go-to choice.",
+                    "highlights": [
+                        "Traditional handcrafting",
+                        "Carefully selected and roasted",
+                        "Originates from Wuyi Mountains, giving it a unique aroma and taste thanks to the special geographic conditions",
+                        "Naturally pollution-free, with no additives"
+                    ],
+                    "details": "Da Hong Pao tea offers you a rich \"rocky\" flavor and lasting sweetness, truly a gem among teas. Subscribe to our service and be the first to try our upcoming limited edition \"Tie Guan Yin\" tea.",
+                    "features": [
+                        {
+                            "label": "Programmer Exclusive",
+                            "content": "For programmers, Da Hong Pao is not just a cup of tea; it's a refreshing break in the coding life. Long hours in front of the screen can strain your eyes and mind. The natural antioxidants in Da Hong Pao can help reduce fatigue, boost focus, and make your code more elegant and efficient."
+                        },
+                        {
+                            "label": "Unique Flavor",
+                            "content": "Da Hong Pao’s distinctive rocky flavor provides a rich taste experience, making every sip a delight for your taste buds. Whether debugging in-between or contemplating complex algorithms, a cup of Da Hong Pao can inspire and relax you."
+                        },
+                        {
+                            "label": "Health Companion",
+                            "content": "Crafted traditionally and naturally pollution-free, Da Hong Pao retains the original essence of tea leaves, rich in polyphenols, amino acids, and vitamins, making it your perfect companion for a healthy lifestyle."
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "packages":[
+        {
+            "code": "NORMAL",
+            "name": "普通货物"
+        },
+        {
+            "code": "HAS_BATTERY",
+            "name": "带电(如手机 电子表)"
+        }
+    ],
+    "countries":[
+        {
+            "searchName": "中国",
+            "name": "中国",
+            "id": 1
+        },
+        {
+            "searchName": "巴西",
+            "name": "Brasil",
+            "id": 32
+        },
+        {
+            "searchName": "大韩民国",
+            "name": "Korea",
+            "id": 198
+        },
+        {
+            "searchName": "智利",
+            "name": "Chile",
+            "id": 43
+        },
+        {
+            "searchName": "德国",
+            "name": "Germany",
+            "id": 77
+        },
+        {
+            "searchName": "美国",
+            "name": "United States",
+            "id": 228
+        },
+        {
+            "searchName": "俄罗斯",
+            "name": "Russian Federation",
+            "id": 174
+        },
+        {
+            "searchName": "以色列",
+            "name": "Israel",
+            "id": 100
+        },
+        {
+            "searchName": "瑞士",
+            "name": "Switzerland",
+            "id": 206
+        },
+        {
+            "searchName": "西班牙",
+            "name": "Spain",
+            "id": 199
+        },
+        {
+            "searchName": "法国",
+            "name": "France",
+            "id": 72
+        },
+        {
+            "searchName": "阿富汗",
+            "name": "Afghanistan",
+            "id": 2
+        },
+        {
+            "searchName": "阿尔巴尼亚",
+            "name": "Shqipëri",
+            "id": 5
+        },
+        {
+            "searchName": "阿尔及利亚",
+            "name": "Algérie",
+            "id": 6
+        },
+        {
+            "searchName": "安道尔",
+            "name": "Andorra",
+            "id": 8
+        },
+        {
+            "searchName": "安哥拉",
+            "name": "Angola",
+            "id": 9
+        },
+        {
+            "searchName": "安提瓜和巴布达",
+            "name": "Antigua and Barbuda",
+            "id": 12
+        },
+        {
+            "searchName": "亚美尼亚",
+            "name": "Armenia",
+            "id": 14
+        },
+        {
+            "searchName": "阿鲁巴岛",
+            "name": "Aruba",
+            "id": 15
+        },
+        {
+            "searchName": "澳大利亚",
+            "name": "Australia",
+            "id": 16
+        },
+        {
+            "searchName": "奥地利",
+            "name": "Österreich",
+            "id": 17
+        },
+        {
+            "searchName": "阿塞拜疆",
+            "name": "Azərbaycan",
+            "id": 18
+        },
+        {
+            "searchName": "巴林",
+            "name": "Bahrain",
+            "id": 19
+        },
+        {
+            "searchName": "白俄罗斯",
+            "name": "Беларусь",
+            "id": 23
+        },
+        {
+            "searchName": "比利时",
+            "name": "België",
+            "id": 24
+        },
+        {
+            "searchName": "百慕大群岛(英)",
+            "name": "Bermuda",
+            "id": 27
+        },
+        {
+            "searchName": "玻利维亚",
+            "name": "Bolivia",
+            "id": 29
+        },
+        {
+            "searchName": "巴西",
+            "name": "Brasil",
+            "id": 32
+        },
+        {
+            "searchName": "保加利亚",
+            "name": "България",
+            "id": 33
+        },
+        {
+            "searchName": "布基纳法索",
+            "name": "Burkina Faso",
+            "id": 34
+        },
+        {
+            "searchName": "喀麦隆",
+            "name": "Cameroun",
+            "id": 36
+        },
+        {
+            "searchName": "加拿大",
+            "name": "Canada",
+            "id": 37
+        },
+        {
+            "searchName": "中非",
+            "name": "République centrafricaine",
+            "id": 41
+        },
+        {
+            "searchName": "乍得",
+            "name": "Tchad",
+            "id": 42
+        },
+        {
+            "searchName": "智利",
+            "name": "Chile",
+            "id": 43
+        },
+        {
+            "searchName": "哥伦比亚",
+            "name": "Colombia",
+            "id": 46
+        },
+        {
+            "searchName": "科克群岛(新)",
+            "name": "Cook Islands",
+            "id": 49
+        },
+        {
+            "searchName": "哥斯达黎加",
+            "name": "Costa Rica",
+            "id": 50
+        },
+        {
+            "searchName": "克罗地亚",
+            "name": "Hrvatska",
+            "id": 51
+        },
+        {
+            "searchName": "捷克",
+            "name": "Česká republika",
+            "id": 54
+        },
+        {
+            "searchName": "丹麦",
+            "name": "Danmark",
+            "id": 56
+        },
+        {
+            "searchName": "多米尼克国",
+            "name": "Dominica",
+            "id": 59
+        },
+        {
+            "searchName": "厄瓜多尔",
+            "name": "Ecuador",
+            "id": 61
+        },
+        {
+            "searchName": "萨尔瓦多",
+            "name": "El Salvador",
+            "id": 63
+        },
+        {
+            "searchName": "厄立特里亚",
+            "name": "Eritrea",
+            "id": 65
+        },
+        {
+            "searchName": "爱沙尼亚",
+            "name": "Eesti",
+            "id": 66
+        },
+        {
+            "searchName": "埃塞俄比亚",
+            "name": "Ethiopia",
+            "id": 67
+        },
+        {
+            "searchName": "福克兰群岛",
+            "name": "Falkland Islands",
+            "id": 68
+        },
+        {
+            "searchName": "斐济",
+            "name": "Fiji",
+            "id": 70
+        },
+        {
+            "searchName": "芬兰",
+            "name": "Suomi",
+            "id": 71
+        },
+        {
+            "searchName": "法国",
+            "name": "France",
+            "id": 72
+        },
+        {
+            "searchName": "加蓬",
+            "name": "Gabon",
+            "id": 74
+        },
+        {
+            "searchName": "格鲁吉亚",
+            "name": "Georgia",
+            "id": 76
+        },
+        {
+            "searchName": "德国",
+            "name": "Deutschland",
+            "id": 77
+        },
+        {
+            "searchName": "加纳",
+            "name": "Ghana",
+            "id": 78
+        },
+        {
+            "searchName": "希腊",
+            "name": "Ελλάδα",
+            "id": 80
+        },
+        {
+            "searchName": "几内亚",
+            "name": "Guinea",
+            "id": 86
+        },
+        {
+            "searchName": "几内亚比绍",
+            "name": "Guinea-Bissau",
+            "id": 87
+        },
+        {
+            "searchName": "洪都拉斯",
+            "name": "Honduras",
+            "id": 91
+        },
+        {
+            "searchName": "匈牙利",
+            "name": "Magyarországon",
+            "id": 92
+        },
+        {
+            "searchName": "冰岛",
+            "name": "Iceland",
+            "id": 93
+        },
+        {
+            "searchName": "印度尼西亚",
+            "name": "Indonesia",
+            "id": 95
+        },
+        {
+            "searchName": "爱尔兰",
+            "name": "Ireland",
+            "id": 98
+        },
+        {
+            "searchName": "以色列",
+            "name": "ישראל",
+            "id": 100
+        },
+        {
+            "searchName": "意大利",
+            "name": "Italia",
+            "id": 101
+        },
+        {
+            "searchName": "科特迪瓦",
+            "name": "Côte d' Ivoire",
+            "id": 102
+        },
+        {
+            "searchName": "日本",
+            "name": "日本",
+            "id": 104
+        },
+        {
+            "searchName": "哈萨克斯坦",
+            "name": "Казахстан",
+            "id": 108
+        },
+        {
+            "searchName": "肯尼亚",
+            "name": "Kenya",
+            "id": 109
+        },
+        {
+            "searchName": "基里巴斯",
+            "name": "Kiribati",
+            "id": 110
+        },
+        {
+            "searchName": "吉尔吉斯斯坦",
+            "name": "Киргизия",
+            "id": 112
+        },
+        {
+            "searchName": "老挝",
+            "name": "Laos",
+            "id": 113
+        },
+        {
+            "searchName": "拉脱维亚",
+            "name": "Latvija",
+            "id": 114
+        },
+        {
+            "searchName": "立陶宛",
+            "name": "Lietuva",
+            "id": 120
+        },
+        {
+            "searchName": "卢森堡",
+            "name": "Luxembourg",
+            "id": 121
+        },
+        {
+            "searchName": "北马其顿",
+            "name": "Северна Македонија",
+            "id": 122
+        },
+        {
+            "searchName": "马达加斯加",
+            "name": "Madagascar",
+            "id": 123
+        },
+        {
+            "searchName": "马来西亚",
+            "name": "Malaysia",
+            "id": 125
+        },
+        {
+            "searchName": "马耳他",
+            "name": "Malta",
+            "id": 128
+        },
+        {
+            "searchName": "马提尼克(法)",
+            "name": "Martinique",
+            "id": 130
+        },
+        {
+            "searchName": "墨西哥",
+            "name": "México",
+            "id": 134
+        },
+        {
+            "searchName": "密克罗尼西亚(美)",
+            "name": "Micronesia",
+            "id": 135
+        },
+        {
+            "searchName": "黑山",
+            "name": "Montenegro",
+            "id": 139
+        },
+        {
+            "searchName": "蒙特塞拉特岛(英)",
+            "name": "Montserrat",
+            "id": 140
+        },
+        {
+            "searchName": "摩洛哥",
+            "name": "Maroc",
+            "id": 141
+        },
+        {
+            "searchName": "莫桑比克",
+            "name": "Moçambique",
+            "id": 142
+        },
+        {
+            "searchName": "纳米比亚",
+            "name": "Namibia",
+            "id": 144
+        },
+        {
+            "searchName": "荷兰",
+            "name": "Nederland",
+            "id": 147
+        },
+        {
+            "searchName": "新喀里多尼亚群岛(法)",
+            "name": "Nouvelle Calédonie",
+            "id": 149
+        },
+        {
+            "searchName": "尼加拉瓜",
+            "name": "Nicaragua",
+            "id": 151
+        },
+        {
+            "searchName": "纽埃岛(新)",
+            "name": "Niue",
+            "id": 154
+        },
+        {
+            "searchName": "诺福克岛(澳)",
+            "name": "Norfolk Island",
+            "id": 155
+        },
+        {
+            "searchName": "马里亚纳群岛",
+            "name": "Northern Mariana Islands",
+            "id": 157
+        },
+        {
+            "searchName": "挪威",
+            "name": "Norge",
+            "id": 158
+        },
+        {
+            "searchName": "巴基斯坦",
+            "name": "Pakistan",
+            "id": 160
+        },
+        {
+            "searchName": "巴拉圭",
+            "name": "Paraguay",
+            "id": 164
+        },
+        {
+            "searchName": "秘鲁",
+            "name": "Perú",
+            "id": 165
+        },
+        {
+            "searchName": "波兰",
+            "name": "Polska",
+            "id": 167
+        },
+        {
+            "searchName": "葡萄牙",
+            "name": "Portugal",
+            "id": 168
+        },
+        {
+            "searchName": "波多黎各(美)",
+            "name": "Puerto Rico",
+            "id": 169
+        },
+        {
+            "searchName": "摩尔多瓦",
+            "name": "Moldova",
+            "id": 171
+        },
+        {
+            "searchName": "留尼汪岛",
+            "name": "réunion",
+            "id": 172
+        },
+        {
+            "searchName": "罗马尼亚",
+            "name": "România",
+            "id": 173
+        },
+        {
+            "searchName": "俄罗斯",
+            "name": "Россия",
+            "id": 174
+        },
+        {
+            "searchName": "圣克里斯托弗和尼维斯",
+            "name": "Saint Kitts and Nevis",
+            "id": 178
+        },
+        {
+            "searchName": "圣皮埃尔岛及密克隆岛",
+            "name": "Saint-Pierre-et-Miquelon",
+            "id": 180
+        },
+        {
+            "searchName": "西萨摩亚",
+            "name": "Samoa",
+            "id": 182
+        },
+        {
+            "searchName": "圣马力诺",
+            "name": "San Marino",
+            "id": 183
+        },
+        {
+            "searchName": "圣多美和普林西比",
+            "name": "Sao Tome and Principe",
+            "id": 184
+        },
+        {
+            "searchName": "沙特阿拉伯",
+            "name": "المملكة العربية السعودية",
+            "id": 185
+        },
+        {
+            "searchName": "塞舌尔",
+            "name": "Seychelles",
+            "id": 188
+        },
+        {
+            "searchName": "新加坡",
+            "name": "Singapore",
+            "id": 190
+        },
+        {
+            "searchName": "斯洛伐克",
+            "name": "Slovensko",
+            "id": 192
+        },
+        {
+            "searchName": "斯洛文尼亚",
+            "name": "Slovenija",
+            "id": 193
+        },
+        {
+            "searchName": "所罗门群岛",
+            "name": "Solomon Islands",
+            "id": 194
+        },
+        {
+            "searchName": "韩国",
+            "name": "대한민국",
+            "id": 198
+        },
+        {
+            "searchName": "西班牙",
+            "name": "España",
+            "id": 199
+        },
+        {
+            "searchName": "斯瓦尔巴群岛(挪)",
+            "name": "Svalbard og Jan Mayen",
+            "id": 203
+        },
+        {
+            "searchName": "瑞典",
+            "name": "Sverige",
+            "id": 205
+        },
+        {
+            "searchName": "瑞士",
+            "name": "Schweiz",
+            "id": 206
+        },
+        {
+            "searchName": "巴哈马国",
+            "name": "Bahamas",
+            "id": 210
+        },
+        {
+            "searchName": "梵蒂冈",
+            "name": "Città del Vaticano",
+            "id": 211
+        },
+        {
+            "searchName": "特立尼达和多巴哥",
+            "name": "Trinidad and Tobago",
+            "id": 216
+        },
+        {
+            "searchName": "土耳其",
+            "name": "Hindi",
+            "id": 218
+        },
+        {
+            "searchName": "特克斯和凯科斯群岛(英)",
+            "name": "Turks and Caicos Islands",
+            "id": 220
+        },
+        {
+            "searchName": "图瓦卢",
+            "name": "Tuvalu",
+            "id": 221
+        },
+        {
+            "searchName": "乌克兰",
+            "name": "Україна",
+            "id": 223
+        },
+        {
+            "searchName": "阿拉伯联合酋长国",
+            "name": "United Arab Emirates",
+            "id": 224
+        },
+        {
+            "searchName": "英国",
+            "name": "United Kingdom",
+            "id": 225
+        },
+        {
+            "searchName": "坦桑尼亚",
+            "name": "Tanzania",
+            "id": 226
+        },
+        {
+            "searchName": "美国",
+            "name": "United States",
+            "id": 228
+        },
+        {
+            "searchName": "乌拉圭",
+            "name": "Uruguay",
+            "id": 229
+        },
+        {
+            "searchName": "乌兹别克斯坦",
+            "name": "Узбекистан",
+            "id": 230
+        },
+        {
+            "searchName": "越南",
+            "name": "Việt Nam",
+            "id": 233
+        },
+        {
+            "searchName": "赞比亚",
+            "name": "Zambia",
+            "id": 240
+        },
+        {
+            "searchName": "文莱",
+            "name": "Brunei",
+            "id": 243
+        },
+        {
+            "searchName": "法属南部和南极领地",
+            "name": "French Southern Territories",
+            "id": 252
+        }
+    ]
+}
