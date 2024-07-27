@@ -18,7 +18,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo $PRI_KEY
           ISSUE_NUMBER=3
           ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           echo "$ISSUE_BODY"
@@ -38,6 +37,7 @@ jobs:
         env:
           PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
         run: |
+          echo "$PRI_KEY"
           # 创建一个临时文件来存储私钥
           echo "$PRI_KEY" > private_key.pem
 
