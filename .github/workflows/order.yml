@@ -17,7 +17,6 @@ jobs:
         id: extract_details
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
         run: |
           echo $PRI_KEY
           ISSUE_NUMBER=3
@@ -33,3 +32,19 @@ jobs:
           for line in "${lines[@]}"; do
             echo "$line"
           done
+
+      - name: Decrypt Information
+        id: decrypt_info
+        env:
+          PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
+        run: |
+          # 创建一个临时文件来存储私钥
+          echo "$PRI_KEY" > private_key.pem
+
+          # 循环解密每一行
+          for line in "${lines[@]}"; do
+            echo "$line" | openssl rsautl -decrypt -inkey private_key.pem
+          done
+
+          # 清理私钥文件
+          rm private_key.pem
