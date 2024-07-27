@@ -22,5 +22,29 @@ jobs:
           ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           echo "$ISSUE_BODY"
 
-          INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/### Information(Encrypted)/,/```/p' | sed '1d;$d')
+          echo "Extracting Information(Encrypted) content"
+          INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/^```$/, /^```$/p' | sed '1d;$d')
           echo "$INFO_ENCRYPTED"
+
+          # 按 \n 分组
+          IFS=$'\n' read -rd '' -a lines <<<"$INFO_ENCRYPTED"
+          for line in "${lines[@]}"; do
+            echo "$line"
+          done
+
+      - name: Decrypt Information
+        id: decrypt_info
+        env:
+          PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
+        run: |
+          echo "$PRI_KEY"
+          # 创建一个临时文件来存储私钥
+          echo "$PRI_KEY" > private_key.pem
+
+          # 循环解密每一行
+          for line in "${lines[@]}"; do
+            echo "$line" | openssl rsautl -decrypt -inkey private_key.pem
+          done
+
+          # 清理私钥文件
+          rm private_key.pem
