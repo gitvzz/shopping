@@ -23,7 +23,8 @@ jobs:
           echo "$ISSUE_BODY"
 
           # 提取Information(Encrypted)下的内容
-          INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | awk '/### Information\(Encrypted\)/{flag=1;next}/```/{flag=0}flag')
+          #INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | awk '/### Information\(Encrypted\)/{flag=1;next}/```/{flag=0}flag')
+          INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/### Information(Encrypted)/,/```/p' | sed '1d;$d')
           echo "$INFO_ENCRYPTED"
 
           # 按 \n 分组
