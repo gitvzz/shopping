@@ -23,7 +23,6 @@ jobs:
           echo "$ISSUE_BODY"
 
           # 提取Information(Encrypted)下的内容
-          #INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | awk '/### Information\(Encrypted\)/{flag=1;next}/```/{flag=0}flag')
           INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/### Information(Encrypted)/,/```/p' | sed '1d;$d')
           echo "$INFO_ENCRYPTED"
 
@@ -32,20 +31,3 @@ jobs:
           for line in "${lines[@]}"; do
             echo "$line"
           done
-
-      - name: Decrypt Information
-        id: decrypt_info
-        env:
-          PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
-        run: |
-          echo "$PRI_KEY"
-          # 创建一个临时文件来存储私钥
-          echo "$PRI_KEY" > private_key.pem
-
-          # 循环解密每一行
-          for line in "${lines[@]}"; do
-            echo "$line" | openssl rsautl -decrypt -inkey private_key.pem
-          done
-
-          # 清理私钥文件
-          rm private_key.pem
