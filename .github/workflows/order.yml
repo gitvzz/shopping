@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        - name: Install GitHub CLI
+          run: sudo apt-get install gh
+          
         - name: Extract order details
           id: extract_details
           env:
@@ -15,6 +18,4 @@ jobs:
             ISSUE_NUMBER=3
             ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
             echo "$ISSUE_BODY"
-
             
-        
