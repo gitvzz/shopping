@@ -29,17 +29,17 @@ ISSUE_BODY="### CodeTea - Da Hong Pao tea
 - Freight: ￥5
 - Total: ￥605
 ### Information(Encrypted)
+\`\`\`
 cj18GMedKT8oemhA6Fj+Vhv2YhR0OKueo0y3S1OYxB+1PbaVAbjZGWtYrFs49f4nEjk5LgbpPyyTlXAXAnz2uoVu1+s7wSdRH6lVfZg+Xhlb3j5T00L+lkbFGRr2zPbgF2o+B2lZTYeN1oZSJ+I/9rJ46nhsbgZgn9AVwPk2YOA=
 MjyCo33doX8yKq5iwKtSm2IdU81H1u7JLpfR2E21MCTx3XevsxwYwJYl8VuARqSgFLqh/Wc5VN2Zr1aTNPes13gz56IwN1mqdItNNXjm7QQfBahC7/LeWO8zbzmNOyMxrO2AB2PqXKxuuDenMPiHJr59yTcJCyK8HxYpev+UnhE=
-
+\`\`\`
 md5=02bda52f60a89228925daad754016ce8"
 
 # 提取 Information(Encrypted) 内容
-echo "Extracting Information(Encrypted) content"
-INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/### Information(Encrypted)/,/```/p' | sed '1d;$d')
-echo "Extracted Information:"
+INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/^```$/, /^```$/p' | sed '1d;$d')
 echo "$INFO_ENCRYPTED"
 
+exit 0
 # 按 \n 分组
 echo "Splitting lines"
 IFS=$'\n' read -rd '' -a lines <<<"$INFO_ENCRYPTED"
