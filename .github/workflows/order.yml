@@ -23,7 +23,7 @@ jobs:
           echo "$ISSUE_BODY"
 
           echo "Extracting Information(Encrypted) content"
-          INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/^```$/, /^```$/p' | sed '1d;$d')
+          INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/^```/,/^```/p' | sed '1d;$d')
           echo "$INFO_ENCRYPTED"
 
           # 按 \n 分组

@@ -36,7 +36,7 @@ MjyCo33doX8yKq5iwKtSm2IdU81H1u7JLpfR2E21MCTx3XevsxwYwJYl8VuARqSgFLqh/Wc5VN2Zr1aT
 md5=02bda52f60a89228925daad754016ce8"
 
 # 提取 Information(Encrypted) 内容
-INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/^```$/, /^```$/p' | sed '1d;$d')
+INFO_ENCRYPTED=$(echo "$ISSUE_BODY" | sed -n '/^```/,/^```/p' | sed '1d;$d')
 echo "$INFO_ENCRYPTED"
 
 exit 0
