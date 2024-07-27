@@ -11,8 +11,7 @@ dist-ssr
 
 # local env files
 .env
-.env.local
-.env.*.local
+.env.*
 
 # Log files
 npm-debug.log*
@@ -28,6 +27,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.pem
 
 *.local
 LOCAL_NOTES.md
