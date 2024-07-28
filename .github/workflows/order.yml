@@ -71,7 +71,8 @@ jobs:
           curl -X POST https://mac.gitvz.org/generate_pay_link \
           -H "Content-Type: application/json" \
           -d '${{ env.VALUE }}' > payment_link.json
-
+          
           PAY_LINK=$(cat payment_link.json | jq -r '.pay_link')
-          echo "PAY_LINK: $PAY_LINK"
-          gh issue comment ${{ env.ISSUE_NUMBER }} --body "## Please click on the link to make payment\r$PAY_LINK"
+          echo "## Please click on the link to make payment" > comment.md
+          echo $PAY_LINK >> comment.md
+          gh issue comment ${{ env.ISSUE_NUMBER }} --body "$(cat comment.md)"
