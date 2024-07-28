@@ -37,11 +37,12 @@ jobs:
 
           while IFS= read -r line; do
             if [[ -z $MD ]]; then
-              MD=$line
+              MD="$line"
             elif [[ $line == "### Information(Encrypted)" ]]; then
               is_info_section=true
             elif $is_info_section; then
-              VALUE+=$line
+              VALUE+="$line"
+            fi
           done <<< "$ISSUE_BODY"
 
           echo "MD: $MD"
