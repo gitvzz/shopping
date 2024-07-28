@@ -31,11 +31,13 @@ jobs:
           fi
 
           FIRST_LINE=$(echo $ISSUE_BODY | head -n 1)
+          echo "md5: $FIRST_LINE"
           REMAINING_BODY=$(echo $ISSUE_BODY | tail -n +2)
           echo "md5: $FIRST_LINE"
           echo "$REMAINING_BODY"
 
           MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
+          echo "md5: $MD5_REMAINING_BODY"
           if [[ "$MD5_REMAINING_BODY" != $FIRST_LINE ]]; then
             echo "MD5 校验失败，终止程序"
             exit 1
@@ -47,4 +49,4 @@ jobs:
             echo "$line"
           done
 
-          
+   
