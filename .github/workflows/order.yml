@@ -32,6 +32,9 @@ jobs:
             exit 1
           fi
           
+          REMAINING_BODY=$(echo "$ISSUE_BODY" | tail -n +2 | tr -d '\n\r')
+          echo "REMAINING_BODY: $REMAINING_BODY"
+          exit 0
           # 创建一个临时文件来存储私钥
           echo "$PRI_KEY" > private_key.pem
 
