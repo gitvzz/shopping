@@ -23,8 +23,8 @@ jobs:
           ISSUE_NUMBER=3
           ISSUE_DETAILS=$(gh issue view $ISSUE_NUMBER --json title,body,author,state,createdAt,updatedAt --jq '{title: .title, body: .body, author: .author.login, state: .state, createdAt: .createdAt, updatedAt: .updatedAt}')
           echo "Issue Details: $ISSUE_DETAILS"
-          echo "::set-output name=issue_details::$ISSUE_DETAILS"
+          echo "issue_details=$ISSUE_DETAILS" >> $GITHUB_ENV
 
       - name: Display issue details
         run: |
-          echo "Issue Details: ${{ steps.get_issue.outputs.issue_details }}"
+          echo "Issue Details: ${{ env.issue_details }}"
