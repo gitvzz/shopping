@@ -32,9 +32,14 @@ jobs:
             exit 1
           fi
           
+          FIRST_LINE=$(echo "$ISSUE_BODY" | head -n 1)
           REMAINING_BODY=$(echo "$ISSUE_BODY" | tail -n +2 | tr -d '\n\r')
           echo "REMAINING_BODY: $REMAINING_BODY"
+          echo "FIRST_LINE: $FIRST_LINE"
+          MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
+          echo "md5: $MD5_REMAINING_BODY"
           exit 0
+          
           # 创建一个临时文件来存储私钥
           echo "$PRI_KEY" > private_key.pem
 
