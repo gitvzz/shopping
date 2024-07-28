@@ -24,7 +24,10 @@ jobs:
           ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
           ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
-          
+          echo "ISSUE_TITLE: $ISSUE_TITLE"
+          echo "ISSUE_BODY: $ISSUE_BODY"
+          echo "ISSUE_AUTHOR: $ISSUE_AUTHOR"
+
           if [[ ! $ISSUE_TITLE =~ ^Order ]]; then
             echo "ISSUE_TITLE 不以 Order 开头，终止程序"
             exit 1
@@ -32,8 +35,13 @@ jobs:
 
           FIRST_LINE=$(echo $ISSUE_BODY | head -n 1)
           REMAINING_BODY=$(echo $ISSUE_BODY | tail -n +2)
-          echo "$REMAINING_BODY"
+          echo "REMAINING_BODY: $REMAINING_BODY"
           ENCRYPTED_INFO=$(echo $REMAINING_BODY | sed -n '/### Information(Encrypted)/,$p' | sed '1d')
-          echo "$ENCRYPTED_INFO"
+          echo "ENCRYPTED_INFO: $ENCRYPTED_INFO"
+
+          IFS=$'\n' read -r -d '' -a ENCRYPTED_ARRAY <<< "$ENCRYPTED_INFO"
+          for line in "${ENCRYPTED_ARRAY[@]}"; do
+            echo "$line"
+          done
 
    
