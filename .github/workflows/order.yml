@@ -13,10 +13,14 @@ jobs:
       - name: Install GitHub CLI
         run: sudo apt-get install gh
 
-      - name: Get issue details
-        id: get_issue
+      - name: Authenticate with GitHub CLI
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Get issue details
+        id: get_issue
         run: |
           #ISSUE_NUMBER=${{ github.event.inputs.issue_number }}
           ISSUE_NUMBER=3
