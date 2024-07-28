@@ -29,16 +29,19 @@ jobs:
           
           if [[ ! $ISSUE_TITLE =~ ^Order ]]; then
             echo "ISSUE_TITLE 不以 Order 开头，终止程序"
-            exit 1
+            exit 0
           fi
           
           FIRST_LINE=$(echo "$ISSUE_BODY" | head -n 1)
           REMAINING_BODY=$(echo "$ISSUE_BODY" | tail -n +2 | tr -d '\n\r')
-          echo "REMAINING_BODY: $REMAINING_BODY"
           echo "FIRST_LINE: $FIRST_LINE"
           MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
           echo "md5: $MD5_REMAINING_BODY"
-          exit 0
+
+          if [[ "$MD5_REMAINING_BODY" != "$FIRST_LINE" ]]; then
+            echo "MD5 校验失败，终止程序"
+            exit 1
+          fi
           
           # 创建一个临时文件来存储私钥
           echo "$PRI_KEY" > private_key.pem
@@ -46,30 +49,16 @@ jobs:
           # 初始化变量
           MD=""
           VALUE=""
-          DATA=""
           is_info_section=false
 
           while IFS= read -r line; do
-            if [[ -z $MD ]]; then
-              MD="$line"
-            elif [[ $line =~ "Information" ]]; then
+            if [[ $line =~ "Information" ]]; then
               is_info_section=true
-              DATA+=$(echo "$line" | tr -d '\n')
             elif $is_info_section; then
               decrypted_line=$(echo "$line" | base64 -d | openssl pkeyutl -decrypt -inkey private_key.pem -pkeyopt rsa_padding_mode:pkcs1)
               VALUE+="$decrypted_line"
-              DATA+=$(echo "$line" | tr -d '\n')
-            else
-              DATA+=$(echo "$line" | tr -d '\n')
             fi
           done <<< "$ISSUE_BODY"
 
-          echo "MD: $MD"
           echo "VALUE: $VALUE"
-          echo "DATA: $DATA"
           rm private_key.pem
-
-          MD5_REMAINING_BODY=$(echo -n $DATA | md5sum | awk '{ print $1 }')
-          echo "md5: $MD5_REMAINING_BODY"
-
-   
