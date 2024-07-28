@@ -39,6 +39,7 @@ jobs:
           if [[ "$MD5" != "$FIRST_LINE" ]]; then
             echo "md5 incorrect"
             gh issue comment $ISSUE_NUMBER --body "md5 incorrect,closed this issue."
+            gh issue close $ISSUE_NUMBER
             exit 0
           fi
           
