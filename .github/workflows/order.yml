@@ -21,52 +21,20 @@ jobs:
         id: get_issue
         run: |
           ISSUE_NUMBER=6
-          ISSUE_DETAILS=$(gh issue view $ISSUE_NUMBER --json title,body --jq '{title: .title, body: .body}')
-          echo "$ISSUE_DETAILS" > issue_details.json
-          ISSUE_TITLE=$(jq -r '.title' issue_details.json)
-          ISSUE_BODY=$(jq -r '.body' issue_details.json)
-          echo "ISSUE_TITLE=$ISSUE_TITLE" >> $GITHUB_ENV
-          echo "ISSUE_BODY=$ISSUE_BODY" >> $GITHUB_ENV
-
-      - name: Validate issue title
-        id: validate_title
-        run: |
-          if [[ ! "${{ env.ISSUE_TITLE }}" =~ ^Order ]]; then
+          ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
+          ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
+          ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
+          echo "Issue Author: $ISSUE_AUTHOR"
+          echo "Issue Title: $ISSUE_TITLE"
+          echo "Issue Body: $ISSUE_BODY"
+          if [[ ! $ISSUE_TITLE =~ ^Order ]]; then
             echo "ISSUE_TITLE 不以 Order 开头，终止程序"
             exit 1
           fi
-        env:
-          ISSUE_TITLE: ${{ env.ISSUE_TITLE }}
 
-      - name: Extract first line from issue body
-        id: extract_first_line
-        run: |
-          FIRST_LINE=$(echo "${{ env.ISSUE_BODY }}" | head -n 1)
-          REMAINING_BODY=$(echo "${{ env.ISSUE_BODY }}" | tail -n +2)
-          echo "FIRST_LINE=$FIRST_LINE" >> $GITHUB_ENV
-          echo "REMAINING_BODY=$REMAINING_BODY" >> $GITHUB_ENV
-        env:
-          ISSUE_BODY: ${{ env.ISSUE_BODY }}
+          FIRST_LINE=$(echo $ISSUE_BODY | head -n 1)
+          REMAINING_BODY=$(echo $ISSUE_BODY | tail -n +2)
+          echo "md5: $FIRST_LINE"
+          echo "$REMAINING_BODY"
+
           
-      - name: Compute MD5 and compare
-        id: compute_md5
-        run: |
-          MD5_REMAINING_BODY=$(echo -n "${{ env.REMAINING_BODY }}" | md5sum | awk '{ print $1 }')
-          if [[ "$MD5_REMAINING_BODY" != "${{ env.FIRST_LINE }}" ]]; then
-            echo "MD5 校验失败，终止程序"
-            exit 1
-          fi
-        env:
-          FIRST_LINE: ${{ env.FIRST_LINE }}
-          REMAINING_BODY: ${{ env.REMAINING_BODY }}
-
-      - name: Extract encrypted information
-        id: extract_encrypted_info
-        run: |
-          ENCRYPTED_INFO=$(echo "${{ env.REMAINING_BODY }}" | sed -n '/### Information(Encrypted)/,$p' | sed '1d')
-          IFS=$'\n' read -r -d '' -a ENCRYPTED_ARRAY <<< "$ENCRYPTED_INFO"
-          for line in "${ENCRYPTED_ARRAY[@]}"; do
-            echo "$line"
-          done
-        env:
-          REMAINING_BODY: ${{ env.REMAINING_BODY }}
