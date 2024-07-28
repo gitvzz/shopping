@@ -32,7 +32,6 @@ jobs:
             exit 1
           fi
           
-          echo "$PRI_KEY"
           # 创建一个临时文件来存储私钥
           echo "$PRI_KEY" > private_key.pem
 
@@ -47,7 +46,8 @@ jobs:
             elif [[ $line =~ "Information" ]]; then
               is_info_section=true
             elif $is_info_section; then
-              decrypted_line=$(echo "$line" | openssl rsautl -decrypt -inkey private_key.pem)
+              echo "$line" | base64 -d > encrypted_line.bin
+              decrypted_line=$(openssl pkeyutl -decrypt -inkey private_key.pem -in encrypted_line.bin)
               VALUE+="$decrypted_line"
             fi
           done <<< "$ISSUE_BODY"
