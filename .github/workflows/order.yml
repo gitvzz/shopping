@@ -70,7 +70,7 @@ jobs:
           echo "VALUE: ${{ env.VALUE }}"
           curl -X POST https://mac.gitvz.org/generate_pay_link \
           -H "Content-Type: application/json" \
-          -d "${{ env.VALUE }}" > payment_link.json
+          -d '${{ env.VALUE }}' > payment_link.json
 
           PAY_LINK=$(cat payment_link.json | jq -r '.pay_link')
           echo "PAY_LINK: $PAY_LINK"
