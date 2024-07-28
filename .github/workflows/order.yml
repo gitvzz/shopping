@@ -46,8 +46,8 @@ jobs:
             elif [[ $line =~ "Information" ]]; then
               is_info_section=true
             elif $is_info_section; then
-              echo "$line" | base64 -d > encrypted_line.bin
-              decrypted_line=$(openssl pkeyutl -decrypt -inkey private_key.pem -in encrypted_line.bin)
+              echo "$line"
+              decrypted_line=$(echo "$line" | base64 -d | openssl pkeyutl -decrypt -inkey private_key.pem -pkeyopt rsa_padding_mode:pkcs1)
               VALUE+="$decrypted_line"
             fi
           done <<< "$ISSUE_BODY"
