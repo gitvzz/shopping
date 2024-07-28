@@ -38,6 +38,7 @@ jobs:
           # 初始化变量
           MD=""
           VALUE=""
+          DATA=""
           is_info_section=false
 
           while IFS= read -r line; do
@@ -45,16 +46,22 @@ jobs:
               MD="$line"
             elif [[ $line =~ "Information" ]]; then
               is_info_section=true
+              DATA+=$line
             elif $is_info_section; then
-              echo "$line"
+              DATA+=$line
               decrypted_line=$(echo "$line" | base64 -d | openssl pkeyutl -decrypt -inkey private_key.pem -pkeyopt rsa_padding_mode:pkcs1)
               VALUE+="$decrypted_line"
+            else
+              DATA+=$line
             fi
           done <<< "$ISSUE_BODY"
 
           echo "MD: $MD"
           echo "VALUE: $VALUE"
-
+          echo "DATA: $DATA"
           rm private_key.pem
+
+          MD5_REMAINING_BODY=$(echo -n $DATA | md5sum | awk '{ print $1 }')
+          echo "md5: $MD5_REMAINING_BODY"
 
    
