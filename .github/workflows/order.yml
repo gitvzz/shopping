@@ -22,7 +22,7 @@ jobs:
         run: |
           ISSUE_NUMBER=6
           ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
-          ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body | tr -d '\r')
+          ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
           
           if [[ ! $ISSUE_TITLE =~ ^Order ]]; then
@@ -35,7 +35,7 @@ jobs:
           echo "md5: $FIRST_LINE"
           echo "$REMAINING_BODY"
 
-          MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
+          MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | tr -d '\r' | md5sum | awk '{ print $1 }')
           echo "md5: $MD5_REMAINING_BODY"
           if [[ "$MD5_REMAINING_BODY" != $FIRST_LINE ]]; then
             echo "MD5 校验失败，终止程序"
