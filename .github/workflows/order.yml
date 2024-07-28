@@ -30,8 +30,21 @@ jobs:
             exit 1
           fi
           
+          # 初始化变量
+          MD=""
+          VALUE=""
+          is_info_section=false
+
           while IFS= read -r line; do
-            echo "$line"
+            if [[ -z $MD ]]; then
+              MD=$line
+            elif [[ $line == "### Information(Encrypted)" ]]; then
+              is_info_section=true
+            elif $is_info_section; then
+              VALUE+=$line
           done <<< "$ISSUE_BODY"
+
+          echo "MD: $MD"
+          echo "VALUE: $VALUE"
 
    
