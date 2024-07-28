@@ -63,7 +63,7 @@ jobs:
           rm -f private_key.pem
 
           echo "VALUE=$VALUE" >> $GITHUB_ENV
-          # echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
 
       - name: Generate payment link
         run: |
@@ -74,4 +74,4 @@ jobs:
 
           PAY_LINK=$(cat payment_link.json | jq -r '.pay_link')
           echo "PAY_LINK: $PAY_LINK"
-          gh issue comment 7 --body "## Please click on the link to make payment\r$PAY_LINK"
+          gh issue comment ${{ env.ISSUE_NUMBER }} --body "## Please click on the link to make payment\r$PAY_LINK"
