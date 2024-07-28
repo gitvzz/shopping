@@ -38,7 +38,7 @@ jobs:
           while IFS= read -r line; do
             if [[ -z $MD ]]; then
               MD="$line"
-            elif [[ $line == "### Information(Encrypted)" ]]; then
+            elif [[ $line =~ "Information" ]]; then
               is_info_section=true
             elif $is_info_section; then
               VALUE+="$line"
