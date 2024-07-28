@@ -19,6 +19,8 @@ jobs:
 
       - name: Get issue details
         id: get_issue
+        env:
+          PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
         run: |
           ISSUE_NUMBER=6
           ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
@@ -30,6 +32,10 @@ jobs:
             exit 1
           fi
           
+          echo "$PRI_KEY"
+          # 创建一个临时文件来存储私钥
+          echo "$PRI_KEY" > private_key.pem
+
           # 初始化变量
           MD=""
           VALUE=""
@@ -41,11 +47,14 @@ jobs:
             elif [[ $line =~ "Information" ]]; then
               is_info_section=true
             elif $is_info_section; then
-              VALUE+="$line"
+              decrypted_line=$(echo "$line" | openssl rsautl -decrypt -inkey private_key.pem)
+              VALUE+="$decrypted_line"
             fi
           done <<< "$ISSUE_BODY"
 
           echo "MD: $MD"
           echo "VALUE: $VALUE"
+
+          rm private_key.pem
 
    
