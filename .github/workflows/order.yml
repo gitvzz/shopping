@@ -1,6 +1,8 @@
 name: order
 
-on: workflow_dispatch
+on: 
+  issues:
+    types: [opened]
 
 jobs:
   order:
@@ -22,7 +24,7 @@ jobs:
         env:
           PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
         run: |
-          ISSUE_NUMBER=7
+          ISSUE_NUMBER=${{ github.event.issue.number }}
           ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
           ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
