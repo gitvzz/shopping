@@ -22,7 +22,6 @@ jobs:
       - name: Get issue details
         id: get_issue
         run: |
-          #ISSUE_NUMBER=${{ github.event.inputs.issue_number }}
           ISSUE_NUMBER=3
           ISSUE_DETAILS=$(gh issue view $ISSUE_NUMBER --json title,body,author,state,createdAt,updatedAt --jq '{title: .title, body: .body, author: .author.login, state: .state, createdAt: .createdAt, updatedAt: .updatedAt}')
           echo "Issue Details: $ISSUE_DETAILS"
