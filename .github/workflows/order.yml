@@ -63,12 +63,14 @@ jobs:
           rm -f private_key.pem
 
           echo "VALUE=$VALUE" >> $GITHUB_ENV
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
 
       - name: Generate payment link
         run: |
-          echo "VALUE: ${{ env.VALUE }}"
           curl -X POST https://mac.gitvz.org/generate_pay_link \
           -H "Content-Type: application/json" \
-          -d '${{ env.VALUE }}' > payment_link.json
+          -d "${{ env.VALUE }}" > payment_link.json
+
           PAY_LINK=$(cat payment_link.json | jq -r '.pay_link')
-          gh issue comment $ISSUE_NUMBER --body "## Please click on the link to make payment\r$PAY_LINK"
+          echo "PAY_LINK: $PAY_LINK"
+          gh issue comment ${{ env.ISSUE_NUMBER }} --body "## Please click on the link to make payment\r$PAY_LINK"
