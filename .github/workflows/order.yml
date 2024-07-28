@@ -31,17 +31,19 @@ jobs:
           fi
 
           FIRST_LINE=$(echo $ISSUE_BODY | head -n 1)
-          REMAINING_BODY=$(echo $ISSUE_BODY | tail -n +2)
+          
+          REMAINING_BODY=$(echo "$ISSUE_BODY" | tail -n +2 | tr '\n' ' ')
           echo "md5: $FIRST_LINE"
           echo "$REMAINING_BODY"
 
-          MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | tr -d '\r' | md5sum | awk '{ print $1 }')
+          MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
           echo "md5: $MD5_REMAINING_BODY"
           if [[ "$MD5_REMAINING_BODY" != $FIRST_LINE ]]; then
             echo "MD5 校验失败，终止程序"
             exit 1
           fi
 
+          REMAINING_BODY=$(echo $ISSUE_BODY | tail -n +2)
           ENCRYPTED_INFO=$(echo $REMAINING_BODY | sed -n '/### Information(Encrypted)/,$p' | sed '1d')
           IFS=$'\n' read -r -d '' -a ENCRYPTED_ARRAY <<< "$ENCRYPTED_INFO"
           for line in "${ENCRYPTED_ARRAY[@]}"; do
