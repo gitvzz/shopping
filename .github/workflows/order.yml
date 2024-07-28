@@ -29,10 +29,10 @@ jobs:
             echo "ISSUE_TITLE 不以 Order 开头，终止程序"
             exit 1
           fi
-          REMAINING_BODY=$(echo "$ISSUE_BODY" | tail -n +2 | tr '\n' ' ')
-          echo "REMAINING_BODY: $REMAINING_BODY"
-          IFS=$'\n' read -r -d '' -a ENCRYPTED_ARRAY <<< "$REMAINING_BODY"
-          for line in "${ENCRYPTED_ARRAY[@]}"; do
+          
+          # 按 \n 分组
+          IFS=$'\n' read -rd '' -a lines <<<"$ISSUE_BODY"
+          for line in "${lines[@]}"; do
             echo "$line"
           done
 
