@@ -202,13 +202,13 @@ const copyDescription = () => {
     })
 }
 const submit = (title: string, content: string) => {
-    const data = contactRef.value!.getData()
-    const array = [content, '### Information(Encrypted)']
-
-    array.push('```\n' + data!.sign + '\n```')
     result.title = title
+    const data = contactRef.value!.getData()
+    const array = [content, '### Information(Encrypted)',data!.sign]
+
+    
     const description = array.join('\n')
-    result.description = `${description}\nmd5=${$.md5(title+description)}`
+    result.description = `${$.md5(description)}\n${description}`
     result.visible = true
 }
 

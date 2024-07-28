@@ -1,6 +1,8 @@
 name: order
 
-on: workflow_dispatch
+on: 
+  issues:
+    types: [opened]
 
 jobs:
   order:
@@ -8,16 +10,71 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install GitHub CLI
         run: sudo apt-get install gh
 
-      - name: Extract order details
-        id: extract_details
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Authenticate with GitHub CLI
         run: |
-          ISSUE_NUMBER=3
-          ISSUE_BODY=$(GH_TOKEN=${{ secrets.GITHUB_TOKEN }} gh issue view $ISSUE_NUMBER --json body --jq .body)
-          echo "$ISSUE_BODY"
+          echo "${{ secrets.PAT_TOKEN }}" | gh auth login --with-token
+
+      - name: Get issue details
+        id: get_issue
+        env:
+          PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
+        run: |
+          ISSUE_NUMBER=${{ github.event.issue.number }}
+          ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
+          ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
+          ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
+          
+          if [[ ! $ISSUE_TITLE =~ ^[Oo]rder ]]; then
+            echo "this issue is not an order issue"
+            exit 0
+          fi
+          
+          FIRST_LINE=$(echo "$ISSUE_BODY" | head -n 1 | tr -d '\n\r')
+          REMAINING_BODY=$(echo "$ISSUE_BODY" | tail -n +2 | tr -d '\n\r')
+          MD5=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
+          
+          if [[ "$MD5" != "$FIRST_LINE" ]]; then
+            echo "md5 incorrect"
+            gh issue comment $ISSUE_NUMBER --body "md5 incorrect,closed this issue."
+            gh issue close $ISSUE_NUMBER
+            exit 0
+          fi
+          
+          # 创建一个临时文件来存储私钥
+          echo "$PRI_KEY" > private_key.pem
+
+          # 初始化变量
+          
+          VALUE=""
+          is_info_section=false
+
+          while IFS= read -r line; do
+            if [[ $line =~ "Information(Encrypted)" ]]; then
+              is_info_section=true
+            elif $is_info_section; then
+              decrypted_line=$(echo "$line" | tr -d '\n\r' | base64 -d | openssl pkeyutl -decrypt -inkey private_key.pem -pkeyopt rsa_padding_mode:pkcs1)
+              VALUE+="$decrypted_line"
+            fi
+          done <<< "$ISSUE_BODY"
+
+          rm -f private_key.pem
+
+          echo "VALUE=$VALUE" >> $GITHUB_ENV
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+
+      - name: Generate payment link
+        run: |
+          echo "VALUE: ${{ env.VALUE }}"
+          curl -X POST https://mac.gitvz.org/generate_pay_link \
+          -H "Content-Type: application/json" \
+          -d '${{ env.VALUE }}' > payment_link.json
+          
+          PAY_LINK=$(cat payment_link.json | jq -r '.pay_link')
+          echo "## Please click on the link to make payment" > comment.md
+          echo $PAY_LINK >> comment.md
+          gh issue comment ${{ env.ISSUE_NUMBER }} --body "$(cat comment.md)"
