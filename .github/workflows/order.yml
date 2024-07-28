@@ -27,20 +27,19 @@ jobs:
           ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
           
-          if [[ ! $ISSUE_TITLE =~ ^Order ]]; then
-            echo "ISSUE_TITLE 不以 Order 开头，终止程序"
+          if [[ ! $ISSUE_TITLE =~ ^[Oo]rder ]]; then
+            echo "this issue is not an order issue"
             exit 0
           fi
           
           FIRST_LINE=$(echo "$ISSUE_BODY" | head -n 1 | tr -d '\n\r')
           REMAINING_BODY=$(echo "$ISSUE_BODY" | tail -n +2 | tr -d '\n\r')
-          echo "FIRST_LINE: $FIRST_LINE"
-          MD5_REMAINING_BODY=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
-          echo "md5: $MD5_REMAINING_BODY"
-
-          if [[ "$MD5_REMAINING_BODY" != "$FIRST_LINE" ]]; then
-            echo "MD5 校验失败，终止程序"
-            exit 1
+          MD5=$(echo -n $REMAINING_BODY | md5sum | awk '{ print $1 }')
+          
+          if [[ "$MD5" != "$FIRST_LINE" ]]; then
+            echo "md5 incorrect"
+            gh issue comment $ISSUE_NUMBER --body "md5 incorrect,closed this issue."
+            exit 0
           fi
           
           # 创建一个临时文件来存储私钥
@@ -52,7 +51,7 @@ jobs:
           is_info_section=false
 
           while IFS= read -r line; do
-            if [[ $line =~ "Information" ]]; then
+            if [[ $line =~ "Information(Encrypted)" ]]; then
               is_info_section=true
             elif $is_info_section; then
               decrypted_line=$(echo "$line" | tr -d '\n\r' | base64 -d | openssl pkeyutl -decrypt -inkey private_key.pem -pkeyopt rsa_padding_mode:pkcs1)
