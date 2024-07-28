@@ -21,12 +21,10 @@ jobs:
         id: get_issue
         run: |
           ISSUE_NUMBER=6
-          ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
-          ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
-          ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
-          echo "Issue Author: $ISSUE_AUTHOR"
-          echo "Issue Title: $ISSUE_TITLE"
-          echo "Issue Body: $ISSUE_BODY"
+          ISSUE_DETAILS=$(gh issue view $ISSUE_NUMBER --json title,body --jq '{title: .title, body: .body}')
+          echo "$ISSUE_DETAILS" > issue_details.json
+          ISSUE_TITLE=$(jq -r '.title' issue_details.json)
+          ISSUE_BODY=$(jq -r '.body' issue_details.json)
           echo "ISSUE_TITLE=$ISSUE_TITLE" >> $GITHUB_ENV
           echo "ISSUE_BODY=$ISSUE_BODY" >> $GITHUB_ENV
 
