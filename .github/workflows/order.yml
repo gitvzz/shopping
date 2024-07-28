@@ -22,7 +22,7 @@ jobs:
         env:
           PRI_KEY: ${{ secrets.ORDER_PRI_KEY }}
         run: |
-          ISSUE_NUMBER=6
+          ISSUE_NUMBER=7
           ISSUE_TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq .title)
           ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body --jq .body)
           ISSUE_AUTHOR=$(gh issue view $ISSUE_NUMBER --json author --jq .author.login)
@@ -47,7 +47,7 @@ jobs:
           echo "$PRI_KEY" > private_key.pem
 
           # 初始化变量
-          MD=""
+          
           VALUE=""
           is_info_section=false
 
@@ -62,3 +62,5 @@ jobs:
 
           echo "VALUE: $VALUE"
           rm private_key.pem
+
+          gh issue comment $ISSUE_NUMBER --body "## Please click on the link to make payment\nhttps://github.com/gitvzz/shopping?id=$MD5"
